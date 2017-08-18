@@ -1,5 +1,5 @@
 # Blackjack Project
-## Brian Thomas 08/18/2017
+### Brian Thomas 08/18/2017
 ### Overview
 This is a command line blackjack game
 
