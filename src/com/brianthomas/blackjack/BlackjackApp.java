@@ -41,20 +41,40 @@ public class BlackjackApp {
 		do {
 			askForHit(playerHand);
 		} while (choice == 'h' && game == "continue");
+
+		dealerTurn();
+	}
+
+	private void dealerTurn() {
+		while (dealerHand.getValueOfHand() < 17) {
+			System.out.println("Dealer Hits");
+			try {
+				Thread.sleep(400);
+			} catch (InterruptedException ie) {
+				ie.printStackTrace();
+			}
+
+			dealerHand.addCard(deck.dealCard());
+			getValueOfHands();
+		}
+
 	}
 
 	private void askForHit(Hand hand) {
-		System.out.println("(H)it or (S)tay?");
-		System.out.print(">> ");
-		choice = input.next().toLowerCase().charAt(0);
 		while (game == "continue") {
+			System.out.println("(H)it or (S)tay?");
+			System.out.print(">> ");
+			choice = input.next().toLowerCase().charAt(0);
 			if (choice == 'h') {
 				hand.addCard(deck.dealCard());
 				getValueOfHands();
 				if (hand.getValueOfHand() > 21) {
 					game = "bust";
+					choice = 's';
 					System.out.println("BUST!!!");
 				}
+			} else {
+				break;
 			}
 
 		}
@@ -66,8 +86,10 @@ public class BlackjackApp {
 			System.out.println("PUSH");
 		} else if (player.getHand().getValueOfHand() == 21) {
 			System.out.println(player.getName() + " wins: Blackjack!");
+			game = "playerWin";
 		} else if (dealerHand.getValueOfHand() == 21) {
 			System.out.println("Dealer has Blackjack!");
+			game = "dealerWin";
 		}
 
 	}
