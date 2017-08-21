@@ -46,18 +46,36 @@ public class BlackjackApp {
 	}
 
 	private void dealerTurn() {
-		while (dealerHand.getValueOfHand() < 17) {
-			System.out.println("Dealer Hits");
-			try {
-				Thread.sleep(400);
-			} catch (InterruptedException ie) {
-				ie.printStackTrace();
-			}
-
-			dealerHand.addCard(deck.dealCard());
-			getValueOfHands();
+		while (dealerHand.getValueOfHand() < 17 && game == "continue") {
+			
+				System.out.println("Dealer Hits");
+				try {
+					Thread.sleep(400);
+				} catch (InterruptedException ie) {
+					ie.printStackTrace();
+				}
+				
+				dealerHand.addCard(deck.dealCard());
+				getValueOfHands();
+				if(dealerHand.getValueOfHand() > 21) {
+					System.out.println("Dealer BUSTS!!!");
+					game = "playerWin";
+					break;
+				}
+			
 		}
+		checkForWinner();
+	}
 
+	private void checkForWinner() {
+		if ((player.getHand().getValueOfHand() < 22) && (player.getHand().getValueOfHand() > dealerHand.getValueOfHand()) || (dealerHand.getValueOfHand() > 21)) {
+			System.out.println(player.getName() + " Wins!");
+		} else if(dealerHand.getValueOfHand() > player.getHand().getValueOfHand() && dealerHand.getValueOfHand() < 22) {
+			System.out.println("Dealer Wins!");
+		} else if( player.getHand().getValueOfHand() == dealerHand.getValueOfHand()) {
+			System.out.println("PUSH");
+		}
+		
 	}
 
 	private void askForHit(Hand hand) {
@@ -76,9 +94,7 @@ public class BlackjackApp {
 			} else {
 				break;
 			}
-
 		}
-
 	}
 
 	private void checkForBlackJack() {
