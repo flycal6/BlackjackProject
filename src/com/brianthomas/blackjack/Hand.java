@@ -22,6 +22,9 @@ public class Hand {
 		for(Card card : hand) {
 			valueOfHand += card.getValue();
 		}
+		if(hand.toString().contains("ace") && valueOfHand < 12) {
+			valueOfHand += 10;
+		}
 		return valueOfHand;
 	}
 }

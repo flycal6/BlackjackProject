@@ -149,11 +149,12 @@ public class BlackjackApp {
 	}
 
 	private void namePlayer(Player player) {
-		System.out.println("What's your name?");
-		System.out.print(">> ");
-
-		player.setName(input.nextLine());
-
-		System.out.println("Howdy, " + player.getName());
+//		System.out.println("What's your name?");
+//		System.out.print(">> ");
+//
+//		player.setName(input.nextLine());
+//
+//		System.out.println("Howdy, " + player.getName());
+		player.setName("Player");
 	}
 }
