@@ -3,12 +3,13 @@ package com.brianthomas.blackjack;
 import java.util.Scanner;
 
 public class BlackjackApp {
-	Deck deck;
-	Player player;
-	Hand playerHand;
-	Hand dealerHand;
-	Scanner input = new Scanner(System.in);
-	char choice;
+	private Deck deck;
+	private Player player;
+	private Hand playerHand;
+	private Hand dealerHand;
+	private Scanner input = new Scanner(System.in);
+	private char choice;
+	private String game = "continue";
 
 	public static void main(String[] args) {
 
@@ -39,15 +40,22 @@ public class BlackjackApp {
 		checkForBlackJack();
 		do {
 			askForHit(playerHand);
-		}while(choice == 'h');
+		} while (choice == 'h' && game == "continue");
 	}
 
 	private void askForHit(Hand hand) {
 		System.out.println("(H)it or (S)tay?");
 		System.out.print(">> ");
 		choice = input.next().toLowerCase().charAt(0);
-		if (choice == 'h') {
-			hand.addCard(deck.dealCard());
+		while (game == "continue") {
+			if (choice == 'h') {
+				hand.addCard(deck.dealCard());
+				getValueOfHands();
+				if (hand.getValueOfHand() > 21) {
+					game = "bust";
+					System.out.println("BUST!!!");
+				}
+			}
 
 		}
 
@@ -65,13 +73,13 @@ public class BlackjackApp {
 	}
 
 	private void getValueOfHands() {
-		System.out.println(playerHand.getCardsInHand());
-		System.out.println(playerHand.getValueOfHand());
-
-		System.out.println("");
-
+		System.out.println("Dealer has:");
 		System.out.println(dealerHand.getCardsInHand());
 		System.out.println(dealerHand.getValueOfHand());
+
+		System.out.println("\n" + player.getName() + " has:");
+		System.out.println(playerHand.getCardsInHand());
+		System.out.println(playerHand.getValueOfHand());
 
 	}
 
